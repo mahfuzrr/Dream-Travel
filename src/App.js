@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import AddServices from './pages/AddServices';
+import Blog from './pages/Blog';
+import Home from './pages/Home';
+import LogIn from './pages/LogIn';
+import MyReviews from './pages/MyReviews';
+import ServicesDetails from './pages/ServiceDetails';
+import SignUp from './pages/SignUp';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/login" element={<LogIn />} />
+                <Route path="/register" element={<SignUp />} />
+                <Route path="/" element={<Home />} />
+                <Route
+                    path="/my-reviews"
+                    element={
+                        <PrivateRoute>
+                            <MyReviews />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/add-service"
+                    element={
+                        <PrivateRoute>
+                            <AddServices />
+                        </PrivateRoute>
+                    }
+                />
+                <Route path="/services/:id" element={<ServicesDetails />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="*" element={<div>Not Found...</div>} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

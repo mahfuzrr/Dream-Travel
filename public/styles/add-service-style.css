@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --navBg: #FEFEFE;
+    --primary: #0BE881;
+    --text1: #5d5d5d;
+    --border: #bebebe;
+}
+
+#add-service-all{
+    margin-top: 5%;
+}
+
+#add-service-all > h4{
+    font-size: 18px;
+}
+
+#add-service-form{
+    width: 40%;
+    margin: 3% auto 0% auto;
+}
+
+#add-service-form input{
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 8px 5px;
+    width:100%;
+    color: #000000;
+    font-size: 14px;
+    padding-left: 20px;
+    box-shadow: none;  
+}
+#add-service-form textarea{
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 5px;
+    width:100%;
+    color: #000000;
+    font-size: 14px;
+    padding-left: 20px;
+    box-shadow: none;  
+}
+    
+#add-service-form input:focus + label, #add-service-form input:valid + label{
+    font-size: 12px;
+    color: var(--primary);
+    top: -4px;
+    left: 10px;
+    background: white;
+    padding: 0px 5px 0px 5px;
+}
+
+#add-service-form textarea:focus + label, #add-service-form textarea:valid + label{
+    font-size: 12px;
+    color: var(--primary);
+    top: -4px;
+    left: 10px;
+    background: white;
+    padding: 0px 5px 0px 5px;
+}
+  
+#add-service-form .form-group {
+    width:auto;
+    height:auto;
+    position:relative;
+    margin-bottom: 1.5rem;
+}
+  
+#add-service-form .form-group label {
+    font-size:12px;
+    color: var(--border);
+    padding: 14px;
+    position: absolute;
+    top: -7%;
+    left: 0;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+    pointer-events: none;  
+}
+  
+#add-service-form input:focus {
+    outline:none;
+    border: 1px solid var(--primary);
+}
+
+#add-service-form textarea:focus {
+    outline:none;
+    border: 1px solid var(--primary);
+}
+
+#add-service-form .custom-add-service-btn{
+    font-size: 14px;
+    padding: 5px 25px;
+    background-color: var(--primary);
+}
+
+#add-service-form .custom-add-service-btn:focus{
+    box-shadow: none;
+}
+
+#add-service-form .custom-add-service-btn:active{
+    transform: scale(0.97);
+}
+
+@media only screen and (max-width: 991px) {
+    #add-service-form{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #add-service-form{
+        width: 90%;
+    }
+
+    #add-service-all{
+        margin-top: 15%;
+    }
+}

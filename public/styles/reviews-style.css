@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --navBg: #FEFEFE;
+    --primary: #0BE881;
+    --text1: #5d5d5d;
+    --border: #e0e0e0;
+}
+
+#myReviewsContent{
+    margin-top: 7%;
+}
+
+#reviewTable{
+    margin-top: 5%;
+}
+
+
+#reviewTable thead > tr > th{
+    background-color: rgba(11, 232, 129, 0.1);
+    border: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+#reviewTable tbody td, th {
+    border: 1px solid var(--border);
+    text-align: center;
+    padding: 11px;
+}
+
+#reviewTable tbody td {
+    font-size: 0.87rem;
+}
+
+#reviewTable .table-review-edit-icon{
+    margin-right: 15%;
+    cursor: pointer;
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+#reviewTable .table-review-edit-icon:active{
+    transform: scale(0.93);
+}
+
+#reviewTable .table-review-delete-icon{
+    cursor: pointer;
+    color: red;
+    font-size: 0.95rem;
+}
+
+#reviewTable .table-review-delete-icon:active{
+    transform: scale(0.93);
+}
+
+/* Table style ends */
+
+#reviewEditorModal .modal-dialog .modal-content .modal-header{
+    padding: 10px 25px;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-header .btn-close{
+    font-size: 15px;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-header .btn-close:focus{
+    box-shadow: none;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-header h5{
+    font-size: 17px;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-body{
+    padding: 25px 50px;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-body textarea{
+    font-size: 14px;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-body textarea:focus{
+    box-shadow: none;
+    border: 1px solid var(--primary);
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-body .custom-edit-submit-btn{
+    background-color: var(--primary);
+    font-size: 13px;
+    margin-top: 4%;
+    padding: 5px 15px;
+    color: black;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-body .custom-edit-submit-btn:focus{
+    box-shadow: none;
+}
+
+#reviewEditorModal .modal-dialog .modal-content .modal-body .custom-edit-submit-btn:active{
+    transform: scale(0.98);
+}

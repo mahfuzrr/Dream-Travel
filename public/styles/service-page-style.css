@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --navBg: #FEFEFE;
+    --primary: #0BE881;
+    --text1: #5d5d5d;
+    --border: #bebebe;
+}
+
+#upper-cover{
+    height: 180px;
+    margin-top: 4%;
+}
+
+#upper-cover img{
+    height: 100%;
+    width: 100%;
+    user-select: none;
+    pointer-events: none;
+}
+
+#service-info h5{
+    font-size: 17px;
+    margin-top: 3%;
+}
+
+#service-details{
+    width: 75%;
+}
+
+#service-info .service-page-price{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#service-info .service-page-des-title{
+    font-size: 14.5px;
+    font-weight: 500;
+    margin-top: 2% !important;
+    margin-bottom: 5px !important;
+}
+
+#service-info .service-page-descr{
+    font-size: 13.5px;
+    width: 70%;
+    color: var(--text1);
+}
+
+#service-page-review .service-review-sect{
+    margin-top: 2.5% !important;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#service-page-review  .service-review-warn{
+    font-size: 15px;
+    margin-top: 8px !important;
+}
+
+#service-page-review  .service-review-warn a{
+    color: var(--primary);
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 2px 12px;
+    transition: all 0.4s ease;
+}
+
+#service-page-review  .service-review-warn a:hover{
+    background-color: var(--primary);
+    color: white;
+}
+
+#review-box textarea{
+    border: 1px solid var(--border);
+    width: 50%;
+    margin-top: 1rem;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 10px 15px;
+}
+
+#review-box textarea:focus{
+    box-shadow: none;
+    outline: none;
+    border: 1px solid var(--primary);
+}
+
+#review-box .custom-pos-reviews-btn{
+    margin-top: 0.9rem;
+    font-size: 14px;
+    background-color: var(--primary);
+    padding: 5px 25px;
+}
+
+#review-box .custom-pos-reviews-btn:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+#review-box .custom-pos-reviews-btn:active{
+    transform: scale(0.98);
+}
+
+#all-reviews{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#all-reviews .single-review{
+    margin-top: 1.8rem;
+}
+
+#all-reviews .single-review .single-review-dp{
+    width: 30px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#all-reviews .single-review .single-review-dp img{
+    width: 100%;
+    height: 30px;
+    outline: 3px solid var(--primary);
+    border-radius: 50%;
+}
+
+#all-reviews .single-review .single-review-des .single-review-username{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#all-reviews .single-review .single-review-des .single-review-username span{
+    font-size: 11px;
+    color: var(--primary);
+}
+
+#all-reviews .single-review .single-review-des .single-review-original{
+    font-size: 13px;
+    color: var(--text1);
+}
+
+@media only screen and (max-width: 991px) {
+    #service-details{
+        width: 85%;
+    }
+    #service-info .service-page-descr{
+        width: 95%;
+    }
+    #review-box textarea{
+        width: 80%;
+    }
+}
+
+
+@media only screen and (max-width: 450px) {
+    #service-details{
+        width: 97%;
+    }
+    #service-info .service-page-descr{
+        width: 100%;
+    }
+    #review-box textarea{
+        width: 95%;
+    }
+    #all-reviews .single-review .single-review-des .single-review-username span{
+        font-size: 10px;
+        color: var(--primary);
+    }
+
+    #all-reviews{
+        padding: 0 !important;
+    }
+
+    #all-reviews .single-review{
+        padding: 0 !important;
+    }
+}
