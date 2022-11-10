@@ -1,9 +1,79 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-underscore-dangle */
+import { useContext, useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import { AuthContext } from '../../context/UserContext';
 import ReviewModal from './ReviewModal';
 
 export default function Reviews() {
+    const [reviews, setReviews] = useState([]);
+    const [show, setShow] = useState(false);
+    const [data, setData] = useState('');
+    const [update, setUpdate] = useState(false);
+
+    const { user } = useContext(AuthContext);
+
+    const handleModal = (d) => {
+        setShow(!show);
+        setData(d);
+    };
+
+    const handleDelete = (sid, rid) => {
+        const obj = {
+            sid,
+            rid,
+        };
+
+        fetch(`http://localhost:5000/delete-review`, {
+            method: 'PATCH',
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => {
+                res.json()
+                    .then((upRes) => {
+                        setUpdate(true);
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                    });
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    };
+
+    useEffect(() => {
+        if (user?.uid) {
+            fetch(`http://localhost:5000/get-user-reviews/${user?.uid}`)
+                .then((res) => {
+                    res.json()
+                        .then((upRes) => {
+                            setReviews(upRes?.message);
+                        })
+                        .catch((err) => {
+                            console.log(err.message);
+                        });
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+        }
+        setUpdate(false);
+    }, [update]);
     return (
         <div className="container-fluid min-vh-100 overflow-hidden" id="myReviews">
-            <ReviewModal />
+            <ToastContainer />
+            {show && (
+                <ReviewModal
+                    datas={data}
+                    handleModal={handleModal}
+                    state={show}
+                    setUpdate={setUpdate}
+                />
+            )}
             <div className="container" id="myReviewsContent">
                 <table className="table" id="reviewTable">
                     <thead>
@@ -14,86 +84,34 @@ export default function Reviews() {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* <!-- First Row --> */}
-                        <tr>
-                            <td>Algorithm</td>
-                            <td className="text-start">
-                                There are many variations of passages of Lorem Ipsum available, but
-                                the majority have suffered alteration in some form, by injected
-                                humour, or randomised words which don&apos;t look even slightly
-                                believable. If you are going to use a passage of Lorem Ipsum, you
-                                need to be sure there isn&apos;t anything embarrassing hidden in the
-                                middle of text.
-                            </td>
-                            <td>
-                                <div className="container-fluid d-flex gap-3 justify-content-center align-items-center responsive-icons">
-                                    <span
-                                        className="table-review-edit-icon"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#reviewEditorModal"
-                                    >
-                                        <i className="fa-solid fa-pen-to-square" />
-                                    </span>
-                                    <span className="table-review-delete-icon">
-                                        <i className="fa-solid fa-trash" />
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-
-                        {/* <!-- second row --> */}
-                        <tr>
-                            <td>Algorithm</td>
-                            <td className="text-start">
-                                There are many variations of passages of Lorem Ipsum available, but
-                                the majority have suffered alteration in some form, by injected
-                                humour, or randomised words which don&apos;t look even slightly
-                                believable. If you are going to use a passage of Lorem Ipsum, you
-                                need to be sure there isn&apos;t anything embarrassing hidden in the
-                                middle of text.
-                            </td>
-                            <td>
-                                <div className="container-fluid d-flex gap-3 justify-content-center responsive-icons">
-                                    <span
-                                        className="table-review-edit-icon"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#reviewEditorModal"
-                                    >
-                                        <i className="fa-solid fa-pen-to-square" />
-                                    </span>
-                                    <span className="table-review-delete-icon">
-                                        <i className="fa-solid fa-trash" />
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-
-                        {/* <!-- third row --> */}
-                        <tr>
-                            <td>Algorithm</td>
-                            <td className="text-start">
-                                There are many variations of passages of Lorem Ipsum available, but
-                                the majority have suffered alteration in some form, by injected
-                                humour, or randomised words which don&apos;t look even slightly
-                                believable. If you are going to use a passage of Lorem Ipsum, you
-                                need to be sure there isn&apos;t anything embarrassing hidden in the
-                                middle of text.
-                            </td>
-                            <td>
-                                <div className="container-fluid gap-3 d-flex justify-content-center responsive-icons">
-                                    <span
-                                        className="table-review-edit-icon"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#reviewEditorModal"
-                                    >
-                                        <i className="fa-solid fa-pen-to-square" />
-                                    </span>
-                                    <span className="table-review-delete-icon">
-                                        <i className="fa-solid fa-trash" />
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
+                        {reviews?.map((res) =>
+                            res?.reviews?.map((revRes) => (
+                                <tr key={revRes?._id}>
+                                    <td>{revRes?.serviceName}</td>
+                                    <td className="text-start">{revRes?.review}</td>
+                                    <td>
+                                        <div className="container-fluid d-flex gap-3 justify-content-center align-items-center responsive-icons">
+                                            <span
+                                                className="table-review-edit-icon"
+                                                role="presentation"
+                                                onClick={() => handleModal(revRes)}
+                                            >
+                                                <i className="fa-solid fa-pen-to-square" />
+                                            </span>
+                                            <span
+                                                className="table-review-delete-icon"
+                                                role="presentation"
+                                                onClick={() =>
+                                                    handleDelete(revRes?.serviceId, revRes?._id)
+                                                }
+                                            >
+                                                <i className="fa-solid fa-trash" />
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>

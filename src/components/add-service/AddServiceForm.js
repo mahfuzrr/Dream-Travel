@@ -17,6 +17,7 @@ export default function AddServiceForm() {
 
         const obj = {
             userId: user?.uid,
+            email: user?.email,
             title,
             price,
             photoURL,

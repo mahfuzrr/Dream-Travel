@@ -25,6 +25,9 @@ export default function ServiceDetails() {
         const t = new Date().toLocaleTimeString();
 
         const obj = {
+            uId: user?.uid,
+            serviceName: data?.title,
+            serviceId: id,
             userName: user?.displayName,
             photoURL: user?.photoURL,
             review,
@@ -51,6 +54,8 @@ export default function ServiceDetails() {
             .catch((err) => {
                 console.log(err.message);
             });
+
+        setReview('');
     };
 
     useEffect(() => {
@@ -87,36 +92,40 @@ export default function ServiceDetails() {
                     <p className="m-0 service-review-sect">Reviews</p>
 
                     {user?.uid ? (
+                        <div className="container p-0" id="review-box">
+                            <textarea
+                                className="form-control"
+                                rows="5"
+                                value={review}
+                                onChange={(e) => setReview(e.target.value)}
+                            />
+                            <button
+                                type="button"
+                                className="btn custom-pos-reviews-btn"
+                                onClick={handleSubmit}
+                            >
+                                Post
+                            </button>
+                        </div>
+                    ) : (
                         <>
-                            <div className="container p-0" id="review-box">
-                                <textarea
-                                    className="form-control"
-                                    rows="5"
-                                    value={review}
-                                    onChange={(e) => setReview(e.target.value)}
-                                />
-                                <button
-                                    type="button"
-                                    className="btn custom-pos-reviews-btn"
-                                    onClick={handleSubmit}
+                            <p className="m-0 service-review-warn">
+                                You need to log in to post your reviews.
+                                <Link
+                                    to="/login"
+                                    state={{ from: location }}
+                                    replace
+                                    className="ms-2"
                                 >
-                                    Post
-                                </button>
-                            </div>
-
+                                    LogIn
+                                </Link>
+                            </p>
                             <div className="container" id="all-reviews">
                                 {resReview?.map((res) => (
                                     <SingleReview data={res} key={res?._id} />
                                 ))}
                             </div>
                         </>
-                    ) : (
-                        <p className="m-0 service-review-warn">
-                            You need to log in to post your reviews.
-                            <Link to="/login" state={{ from: location }} replace className="ms-2">
-                                LogIn
-                            </Link>
-                        </p>
                     )}
                 </div>
             </div>

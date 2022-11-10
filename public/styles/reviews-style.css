@@ -1,34 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-:root{
+:root {
     --navBg: #FEFEFE;
     --primary: #0BE881;
     --text1: #5d5d5d;
     --border: #e0e0e0;
 }
 
-#myReviewsContent{
+#myReviewsContent {
     margin-top: 7%;
 }
 
-#reviewTable{
+#reviewTable {
     margin-top: 5%;
 }
 
 
-#reviewTable thead > tr > th{
+#reviewTable thead>tr>th {
     background-color: rgba(11, 232, 129, 0.1);
     border: 1px solid var(--border);
     font-size: 0.9rem;
 }
 
-#reviewTable tbody td, th {
+#reviewTable tbody td,
+th {
     border: 1px solid var(--border);
     text-align: center;
     padding: 11px;
@@ -38,70 +40,118 @@
     font-size: 0.87rem;
 }
 
-#reviewTable .table-review-edit-icon{
+#reviewTable .table-review-edit-icon {
     margin-right: 15%;
     cursor: pointer;
     color: var(--primary);
     font-size: 1rem;
 }
 
-#reviewTable .table-review-edit-icon:active{
+#reviewTable .table-review-edit-icon:active {
     transform: scale(0.93);
 }
 
-#reviewTable .table-review-delete-icon{
+#reviewTable .table-review-delete-icon {
     cursor: pointer;
     color: red;
     font-size: 0.95rem;
 }
 
-#reviewTable .table-review-delete-icon:active{
+#reviewTable .table-review-delete-icon:active {
     transform: scale(0.93);
 }
 
 /* Table style ends */
 
-#reviewEditorModal .modal-dialog .modal-content .modal-header{
-    padding: 10px 25px;
+#myReviews {
+    position: relative;
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-header .btn-close{
-    font-size: 15px;
+#myReviews .show {
+    display: block;
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-header .btn-close:focus{
-    box-shadow: none;
+#myReviews .hide {
+    display: none;
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-header h5{
-    font-size: 17px;
+#reviewEditorModal {
+    z-index: 10000;
+    position: absolute;
+    top: 2%;
+    left: 20%;
+    width: 50%;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-body{
-    padding: 25px 50px;
+#upper-modal {
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0.8rem !important;
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-body textarea{
-    font-size: 14px;
+#below-modal {
+    padding: 2rem 1.5rem;
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-body textarea:focus{
+#upper-modal-title p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+#upper-modal-icon span {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#upper-modal-icon span:hover {
+    color: var(--primary);
+}
+
+#below-modal textarea:focus {
     box-shadow: none;
     border: 1px solid var(--primary);
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-body .custom-edit-submit-btn{
+#below-modal .custom-modal-button {
     background-color: var(--primary);
     font-size: 13px;
-    margin-top: 4%;
-    padding: 5px 15px;
-    color: black;
+    padding: 5px 1rem;
+    border-radius: 3px;
+    margin-top: 3%;
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-body .custom-edit-submit-btn:focus{
+#below-modal .custom-modal-button:focus {
     box-shadow: none;
 }
 
-#reviewEditorModal .modal-dialog .modal-content .modal-body .custom-edit-submit-btn:active{
+#below-modal .custom-modal-button:active {
     transform: scale(0.98);
+}
+
+@media only screen and (max-width: 991px) {
+    #reviewEditorModal {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #reviewEditorModal {
+        width: 85%;
+        left: 10%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #reviewEditorModal {
+        width: 97%;
+        left: 1%;
+    }
+
+    #below-modal .custom-modal-button {
+        margin-top: 4%;
+    }
+
 }

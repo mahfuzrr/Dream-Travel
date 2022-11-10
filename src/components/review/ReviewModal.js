@@ -1,33 +1,84 @@
-export default function ReviewModal() {
+/* eslint-disable no-underscore-dangle */
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
+export default function ReviewModal({ datas, state, handleModal, setUpdate }) {
+    const [review, setReview] = useState('');
+
+    const handleUpdate = () => {
+        const obj = {
+            review,
+            sid: datas?.serviceId,
+            rid: datas?._id,
+        };
+
+        fetch('http://localhost:5000/update-review', {
+            method: 'PATCH',
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => {
+                res.json()
+                    .then(() => {
+                        toast.success('Updated Successful!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 1000,
+                        });
+                    })
+                    .catch((err) => {
+                        toast.error(err.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 1000,
+                        });
+                    });
+            })
+            .catch((err) => {
+                toast.error(err.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 1000,
+                });
+            });
+        setUpdate(true);
+        handleModal();
+    };
+
+    useEffect(() => {
+        setReview(datas?.review);
+    }, []);
+
     return (
-        <div
-            className="modal fade"
-            id="reviewEditorModal"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabIndex="-1"
-            aria-labelledby="reviewEditorModalLabel"
-            aria-hidden="true"
-        >
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="reviewEditorModalLabel">
-                            Service Title
-                        </h5>
-                        <button
-                            type="button"
-                            className="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        />
+        <div className={`container p-0 ${state ? 'show' : 'hide'}`} id="reviewEditorModal">
+            <div className="container-fluid p-0" id="innerEditor">
+                {/* <!-- Upper --> */}
+                <div className="container-fluid p-0 d-flex justify-content-around" id="upper-modal">
+                    <div className="container" id="upper-modal-title">
+                        <p className="m-0 w-100 d-flex justify-content-start">
+                            {datas?.serviceName}
+                        </p>
                     </div>
-                    <div className="modal-body">
-                        <textarea className="form-control" rows="5" />
-                        <button type="button" className="btn custom-edit-submit-btn">
-                            Submit
-                        </button>
+                    <div className="container d-flex justify-content-end" id="upper-modal-icon">
+                        <span role="presentation" onClick={() => handleModal()}>
+                            <i className="fa-solid fa-circle-xmark" />
+                        </span>
                     </div>
+                </div>
+                {/* <!-- Upper --> */}
+                <div className="container-fluid" id="below-modal">
+                    <textarea
+                        className="form-control"
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        rows="5"
+                    />
+                    <button
+                        type="button"
+                        className="btn custom-modal-button"
+                        onClick={() => handleUpdate()}
+                    >
+                        Update
+                    </button>
                 </div>
             </div>
         </div>
