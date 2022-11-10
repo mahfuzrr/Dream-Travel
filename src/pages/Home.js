@@ -18,7 +18,6 @@ export default function Home() {
                 .then((res) => {
                     res.json().then((upRes) => {
                         if (upRes?.success) {
-                            console.log(upRes?.message);
                             setData(upRes?.message);
                         }
                     });
@@ -27,6 +26,7 @@ export default function Home() {
                     console.log(err.message);
                 });
         }
+        document.title = 'Home';
     }, [user]);
 
     let element = <Loader />;

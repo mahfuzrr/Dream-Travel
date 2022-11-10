@@ -73,7 +73,8 @@ export default function ServiceDetails() {
             .catch((err) => {
                 console.log(err.message);
             });
-    }, [id, isSubmit]);
+        document.title = data?.title ? data?.title : 'Services';
+    }, [id, isSubmit, data]);
     return (
         <div className="container-fluid overflow-hidden" id="servicePage">
             <div className="container" id="service-details">

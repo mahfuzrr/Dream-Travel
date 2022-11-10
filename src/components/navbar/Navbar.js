@@ -41,9 +41,9 @@ export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg" id="navbar">
             <div className="container mt-lg-4">
-                <a className="navbar-brand" href="/">
-                    Travel
-                </a>
+                <Link className="navbar-brand" to="/">
+                    Dream Travel
+                </Link>
                 <button
                     className="navbar-toggler"
                     type="button"

@@ -29,7 +29,6 @@ export default function LogInLeftSide() {
                 res.json()
                     .then((upRes) => {
                         localStorage.setItem('token', upRes?.token);
-                        console.log(upRes);
                     })
                     .catch(() => {
                         toast.error('Server Error', {
@@ -49,7 +48,6 @@ export default function LogInLeftSide() {
             // eslint-disable-next-line no-unused-vars
             .then((user) => {
                 // nothing
-                console.log(user);
                 handleJWT(user?.user?.uid);
                 navigate(from, { replace: true });
             })
@@ -71,7 +69,6 @@ export default function LogInLeftSide() {
             // eslint-disable-next-line no-unused-vars
             .then((user) => {
                 // nothing
-                console.log(user);
                 handleJWT(user?.user?.uid);
                 navigate(from, { replace: true });
             })
