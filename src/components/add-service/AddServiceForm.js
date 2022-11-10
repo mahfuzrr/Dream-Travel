@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../../context/UserContext';
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 export default function AddServiceForm() {
@@ -9,23 +10,46 @@ export default function AddServiceForm() {
     const [photoURL, setPhotoURL] = useState('');
     const [description, setDescription] = useState('');
 
+    const { user } = useContext(AuthContext);
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const obj = {
+            userId: user?.uid,
             title,
             price,
             photoURL,
             description,
         };
 
-        fetch('http://localhost:5000/add-services', { method: 'POST', body: obj })
-            .then(() => {
-                toast.success('Service Added Successfully!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
+        fetch('http://localhost:5000/add-services', {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => {
+                res.json()
+                    .then((upRes) => {
+                        setTitle('');
+                        setPrice('');
+                        setPhotoURL('');
+                        setDescription('');
+                        toast.success(upRes.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        toast.error(err.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    });
             })
             .catch((err) => {
+                console.log(err);
                 toast.error(err.message, {
                     position: toast.POSITION.TOP_RIGHT,
                 });
@@ -43,6 +67,7 @@ export default function AddServiceForm() {
                             type="text"
                             className="form-control"
                             name="title"
+                            value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             required
                         />
@@ -55,6 +80,7 @@ export default function AddServiceForm() {
                             type="text"
                             className="form-control"
                             name="price"
+                            value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             required
                         />
@@ -67,6 +93,7 @@ export default function AddServiceForm() {
                             type="text"
                             className="form-control"
                             name="url"
+                            value={photoURL}
                             onChange={(e) => setPhotoURL(e.target.value)}
                             required
                         />
@@ -79,6 +106,7 @@ export default function AddServiceForm() {
                             className="form-control"
                             id="descr"
                             rows="3"
+                            value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             required
                         />
@@ -87,7 +115,7 @@ export default function AddServiceForm() {
                         </label>
                     </div>
 
-                    <button type="button" className="btn custom-add-service-btn">
+                    <button type="submit" className="btn custom-add-service-btn">
                         Add
                     </button>
                 </form>

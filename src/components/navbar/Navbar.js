@@ -66,6 +66,14 @@ export default function Navbar() {
                                 Home
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link
+                                className={`nav-link ${url === '/services' && 'active'}`}
+                                to="/services"
+                            >
+                                Services
+                            </Link>
+                        </li>
                         {user?.uid && (
                             <li className="nav-item">
                                 <Link
