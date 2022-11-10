@@ -71,8 +71,8 @@ export default function Reviews() {
                         .then((upRes) => {
                             if (upRes?.success) {
                                 setReviews(upRes?.message);
-                                setLoad(false);
                             }
+                            setLoad(false);
                         })
                         .catch((err) => {
                             console.log(err.message);
