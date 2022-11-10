@@ -13,6 +13,35 @@ export default function LogInLeftSide() {
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
 
+    const handleJWT = (uId) => {
+        const obj = {
+            uId,
+        };
+
+        fetch('http://localhost:5000/jwt-token', {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => {
+                res.json()
+                    .then((upRes) => {
+                        localStorage.setItem('token', upRes?.token);
+                        console.log(upRes);
+                    })
+                    .catch(() => {
+                        toast.error('Server Error', {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    });
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -20,6 +49,8 @@ export default function LogInLeftSide() {
             // eslint-disable-next-line no-unused-vars
             .then((user) => {
                 // nothing
+                console.log(user);
+                handleJWT(user?.user?.uid);
                 navigate(from, { replace: true });
             })
             .catch((err) => {
@@ -40,6 +71,8 @@ export default function LogInLeftSide() {
             // eslint-disable-next-line no-unused-vars
             .then((user) => {
                 // nothing
+                console.log(user);
+                handleJWT(user?.user?.uid);
                 navigate(from, { replace: true });
             })
             .catch((err) => {

@@ -56,8 +56,14 @@ export default function Reviews() {
     };
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+
         if (user?.uid) {
-            fetch(`http://localhost:5000/get-user-reviews/${user?.uid}`)
+            fetch(`http://localhost:5000/get-user-reviews/${user?.uid}`, {
+                headers: {
+                    Authorization: token,
+                },
+            })
                 .then((res) => {
                     res.json()
                         .then((upRes) => {

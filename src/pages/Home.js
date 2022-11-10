@@ -12,26 +12,13 @@ export default function Home() {
     const [data, setData] = useState([]);
     const { loading, user } = useContext(AuthContext);
 
-    const customSort = (a, b) => new Date(b.time) - new Date(a.time);
-
-    const getSortedDate = (temp) => {
-        let updated = [];
-
-        if (temp) {
-            temp.sort(customSort);
-            updated = temp.slice(0, 3);
-            return updated;
-        }
-
-        return updated;
-    };
-
     useEffect(() => {
         if (user?.uid) {
             fetch(`http://localhost:5000/get-services/${user?.uid}`)
                 .then((res) => {
                     res.json().then((upRes) => {
                         if (upRes?.success) {
+                            console.log(upRes?.message);
                             setData(upRes?.message);
                         }
                     });
@@ -48,7 +35,7 @@ export default function Home() {
             <>
                 <Navbar />
                 <Slider />
-                <ServiceSection data={getSortedDate(data)} />
+                <ServiceSection data={data} />
                 <ProcessSection />
                 <SubscriptionSection />
                 <Footer />
