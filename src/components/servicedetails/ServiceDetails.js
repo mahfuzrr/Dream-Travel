@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import userImage from '../../assets/user.png';
 import { AuthContext } from '../../context/UserContext';
 
@@ -9,6 +9,7 @@ export default function ServiceDetails() {
     const { id } = useParams();
 
     const { user } = useContext(AuthContext);
+    const location = useLocation();
 
     useEffect(() => {
         fetch(`http://localhost:5000/get-service-details/${id}`)
@@ -118,9 +119,9 @@ export default function ServiceDetails() {
                     ) : (
                         <p className="m-0 service-review-warn">
                             You need to log in to post your reviews.
-                            <a href="/" className="ms-2">
+                            <Link to="/login" state={{ from: location }} replace className="ms-2">
                                 LogIn
-                            </a>
+                            </Link>
                         </p>
                     )}
                 </div>
