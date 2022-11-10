@@ -105,6 +105,7 @@ export default function Navbar() {
                             <>
                                 <li className="nav-item user-nav-dp">
                                     <img
+                                        referrerPolicy="no-referrer"
                                         src={user?.photoURL ? user?.photoURL : userImage}
                                         alt="userdp"
                                     />
