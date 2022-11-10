@@ -23,8 +23,8 @@ export default function ServicesPage() {
                     .then((upRes) => {
                         if (upRes?.success) {
                             setData(upRes?.message);
-                            setLoad(false);
                         }
+                        setLoad(false);
                     })
                     .catch((err) => {
                         console.log(err.message);
