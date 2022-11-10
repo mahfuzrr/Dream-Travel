@@ -12,7 +12,7 @@ export default function ReviewModal({ datas, state, handleModal, setUpdate }) {
             rid: datas?._id,
         };
 
-        fetch('http://localhost:5000/update-review', {
+        fetch('https://dream-travel.vercel.app/update-review', {
             method: 'PATCH',
             body: JSON.stringify(obj),
             headers: {

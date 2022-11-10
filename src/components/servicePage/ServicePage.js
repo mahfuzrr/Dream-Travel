@@ -2,9 +2,11 @@
 import { useEffect, useState } from 'react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../Loader';
 
 export default function ServicesPage() {
     const [data, setData] = useState([]);
+    const [load, setLoad] = useState(true);
 
     const navigate = useNavigate();
 
@@ -15,11 +17,14 @@ export default function ServicesPage() {
     const resizeDesc = (str) => str?.slice(0, 120);
 
     useEffect(() => {
-        fetch('http://localhost:5000/get-all-services')
+        fetch('https://dream-travel.vercel.app/get-all-services')
             .then((res) => {
                 res.json()
                     .then((upRes) => {
-                        setData(upRes?.message);
+                        if (upRes?.success) {
+                            setData(upRes?.message);
+                            setLoad(false);
+                        }
                     })
                     .catch((err) => {
                         console.log(err.message);
@@ -30,7 +35,7 @@ export default function ServicesPage() {
             });
     }, []);
 
-    return (
+    let element1 = (
         <div className="container-fluid overflow-hidden min-vh-100" id="all-services">
             <h4 className="mt-5">All Services</h4>
             <div className="container row gap-2" id="total-services">
@@ -69,4 +74,10 @@ export default function ServicesPage() {
             </div>
         </div>
     );
+
+    if (load) {
+        element1 = <Loader />;
+    }
+
+    return element1;
 }

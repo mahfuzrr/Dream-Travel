@@ -18,7 +18,7 @@ export default function LogInLeftSide() {
             uId,
         };
 
-        fetch('http://localhost:5000/jwt-token', {
+        fetch('https://dream-travel.vercel.app/jwt-token', {
             method: 'POST',
             body: JSON.stringify(obj),
             headers: {

@@ -3,6 +3,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../../context/UserContext';
+import Loader from '../Loader';
 import ReviewModal from './ReviewModal';
 
 export default function Reviews() {
@@ -10,6 +11,7 @@ export default function Reviews() {
     const [show, setShow] = useState(false);
     const [data, setData] = useState('');
     const [update, setUpdate] = useState(false);
+    const [load, setLoad] = useState(true);
 
     const { user } = useContext(AuthContext);
 
@@ -24,7 +26,7 @@ export default function Reviews() {
             rid,
         };
 
-        fetch(`http://localhost:5000/delete-review`, {
+        fetch(`https://dream-travel.vercel.app/delete-review`, {
             method: 'PATCH',
             body: JSON.stringify(obj),
             headers: {
@@ -59,7 +61,7 @@ export default function Reviews() {
         const token = localStorage.getItem('token');
 
         if (user?.uid) {
-            fetch(`http://localhost:5000/get-user-reviews/${user?.uid}`, {
+            fetch(`https://dream-travel.vercel.app/get-user-reviews/${user?.uid}`, {
                 headers: {
                     Authorization: token,
                 },
@@ -67,7 +69,10 @@ export default function Reviews() {
                 .then((res) => {
                     res.json()
                         .then((upRes) => {
-                            setReviews(upRes?.message);
+                            if (upRes?.success) {
+                                setReviews(upRes?.message);
+                                setLoad(false);
+                            }
                         })
                         .catch((err) => {
                             console.log(err.message);
@@ -79,7 +84,8 @@ export default function Reviews() {
         }
         setUpdate(false);
     }, [update]);
-    return (
+
+    let renderElement = (
         <div className="container-fluid min-vh-100 overflow-hidden" id="myReviews">
             <ToastContainer />
             {show && (
@@ -137,4 +143,9 @@ export default function Reviews() {
             </div>
         </div>
     );
+
+    if (load) {
+        renderElement = <Loader />;
+    }
+    return renderElement;
 }

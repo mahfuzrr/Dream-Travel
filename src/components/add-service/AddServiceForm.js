@@ -24,7 +24,7 @@ export default function AddServiceForm() {
             description,
         };
 
-        fetch('http://localhost:5000/add-services', {
+        fetch('https://dream-travel.vercel.app/add-services', {
             method: 'POST',
             body: JSON.stringify(obj),
             headers: {

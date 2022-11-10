@@ -14,7 +14,7 @@ export default function Home() {
 
     useEffect(() => {
         if (user?.uid) {
-            fetch(`http://localhost:5000/get-services/${user?.uid}`)
+            fetch(`https://dream-travel.vercel.app/get-services/${user?.uid}`)
                 .then((res) => {
                     res.json().then((upRes) => {
                         if (upRes?.success) {

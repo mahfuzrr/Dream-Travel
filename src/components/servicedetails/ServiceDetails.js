@@ -35,7 +35,7 @@ export default function ServiceDetails() {
             id,
         };
 
-        fetch('http://localhost:5000/add-review', {
+        fetch('https://dream-travel.vercel.app/add-review', {
             method: 'POST',
             body: JSON.stringify(obj),
             headers: {
@@ -59,7 +59,7 @@ export default function ServiceDetails() {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/get-service-details/${id}`)
+        fetch(`https://dream-travel.vercel.app/get-service-details/${id}`)
             .then((res) => {
                 res.json()
                     .then((upRes) => {
