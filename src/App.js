@@ -1,3 +1,4 @@
+import 'react-photo-view/dist/react-photo-view.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import AddServices from './pages/AddServices';

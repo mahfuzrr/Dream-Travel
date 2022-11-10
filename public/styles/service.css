@@ -67,6 +67,7 @@
     color: var(--text1);
     font-size: 13px;
     margin-top: 10px !important;
+    min-height: 100px;
 }
 
 #total-services .service-short-desc .service-description .rev {

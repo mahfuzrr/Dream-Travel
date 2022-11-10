@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { useNavigate } from 'react-router-dom';
 
 export default function ServicesPage() {
@@ -11,7 +12,7 @@ export default function ServicesPage() {
         navigate(`/services/${id}`);
     };
 
-    const resizeDesc = (str) => str?.slice(0, 150);
+    const resizeDesc = (str) => str?.slice(0, 120);
 
     useEffect(() => {
         fetch('http://localhost:5000/get-all-services')
@@ -37,7 +38,15 @@ export default function ServicesPage() {
                     <div key={element?._id} className="container ms-lg-0 col-3 service-card">
                         {/* <!-- Image --> */}
                         <div className="container service-image">
-                            <img className="img-fluid" src={element?.photoURL} alt="service" />
+                            <PhotoProvider>
+                                <PhotoView src={element?.photoURL}>
+                                    <img
+                                        className="img-fluid"
+                                        src={element?.photoURL}
+                                        alt="service"
+                                    />
+                                </PhotoView>
+                            </PhotoProvider>
                         </div>
                         {/* <!-- Details --> */}
                         <div className="container service-short-desc">

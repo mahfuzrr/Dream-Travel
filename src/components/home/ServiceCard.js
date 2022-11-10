@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { useNavigate } from 'react-router-dom';
 
 export default function ServiceCard({ data }) {
     const navigate = useNavigate();
 
-    const resizeDesc = (str) => str?.slice(0, 150);
+    const resizeDesc = (str) => str?.slice(0, 120);
 
     const handleRedirect = (id) => {
         navigate(`/services/${id}`);
@@ -14,7 +15,11 @@ export default function ServiceCard({ data }) {
         <div className="container ms-lg-0 col-3 service-card">
             {/* <!-- Image --> */}
             <div className="container service-image">
-                <img className="img-fluid" src={data?.photoURL} alt="serviceImage" />
+                <PhotoProvider>
+                    <PhotoView src={data?.photoURL}>
+                        <img className="img-fluid" src={data?.photoURL} alt="serviceImage" />
+                    </PhotoView>
+                </PhotoProvider>
             </div>
             {/* <!-- Details --> */}
             <div className="container service-short-desc">

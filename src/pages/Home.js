@@ -12,6 +12,20 @@ export default function Home() {
     const [data, setData] = useState([]);
     const { loading, user } = useContext(AuthContext);
 
+    const customSort = (a, b) => new Date(b.time) - new Date(a.time);
+
+    const getSortedDate = (temp) => {
+        let updated = [];
+
+        if (temp) {
+            temp.sort(customSort);
+            updated = temp.slice(0, 3);
+            return updated;
+        }
+
+        return updated;
+    };
+
     useEffect(() => {
         if (user?.uid) {
             fetch(`http://localhost:5000/get-services/${user?.uid}`)
@@ -34,7 +48,7 @@ export default function Home() {
             <>
                 <Navbar />
                 <Slider />
-                <ServiceSection data={data} />
+                <ServiceSection data={getSortedDate(data)} />
                 <ProcessSection />
                 <SubscriptionSection />
                 <Footer />
