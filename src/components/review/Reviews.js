@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import { useContext, useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../../context/UserContext';
 import ReviewModal from './ReviewModal';
 
@@ -33,15 +33,25 @@ export default function Reviews() {
         })
             .then((res) => {
                 res.json()
-                    .then((upRes) => {
+                    .then(() => {
                         setUpdate(true);
+                        toast.success('Deleted Successful!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 1000,
+                        });
                     })
                     .catch((err) => {
-                        console.log(err.message);
+                        toast.error(err.message, {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 1000,
+                        });
                     });
             })
             .catch((err) => {
-                console.log(err.message);
+                toast.error(err.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 1000,
+                });
             });
     };
 

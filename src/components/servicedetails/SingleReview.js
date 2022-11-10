@@ -10,9 +10,7 @@ export default function SingleReview({ data }) {
                 />
             </div>
             <div className="container single-review-des">
-                <p className="m-0 single-review-username">
-                    {data?.userName} <span>(2 minutes ago)</span>
-                </p>
+                <p className="m-0 single-review-username">{data?.userName}</p>
                 <p className="m-0 single-review-original">{data?.review}</p>
             </div>
         </div>

@@ -108,25 +108,18 @@ export default function ServiceDetails() {
                             </button>
                         </div>
                     ) : (
-                        <>
-                            <p className="m-0 service-review-warn">
-                                You need to log in to post your reviews.
-                                <Link
-                                    to="/login"
-                                    state={{ from: location }}
-                                    replace
-                                    className="ms-2"
-                                >
-                                    LogIn
-                                </Link>
-                            </p>
-                            <div className="container" id="all-reviews">
-                                {resReview?.map((res) => (
-                                    <SingleReview data={res} key={res?._id} />
-                                ))}
-                            </div>
-                        </>
+                        <p className="m-0 service-review-warn">
+                            You need to log in to post your reviews.
+                            <Link to="/login" state={{ from: location }} replace className="ms-2">
+                                LogIn
+                            </Link>
+                        </p>
                     )}
+                    <div className="container" id="all-reviews">
+                        {resReview?.map((res) => (
+                            <SingleReview data={res} key={res?._id} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

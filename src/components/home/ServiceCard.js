@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ServiceCard({ data }) {
     const navigate = useNavigate();
 
-    const resizeDesc = (str) => str?.slice(0, 200);
+    const resizeDesc = (str) => str?.slice(0, 150);
 
     const handleRedirect = (id) => {
         navigate(`/services/${id}`);
@@ -21,7 +21,7 @@ export default function ServiceCard({ data }) {
                 <p className="service-short-title m-0">{data?.title}</p>
                 <p className="service-description m-0">
                     <span className="rev">Description:</span>
-                    {resizeDesc(data?.description)}
+                    {`${resizeDesc(data?.description)}...`}
                 </p>
                 <p className="service-short-dollar m-0">Price: ${data?.price}</p>
                 <button

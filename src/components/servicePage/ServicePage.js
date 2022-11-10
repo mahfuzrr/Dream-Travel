@@ -11,6 +11,8 @@ export default function ServicesPage() {
         navigate(`/services/${id}`);
     };
 
+    const resizeDesc = (str) => str?.slice(0, 150);
+
     useEffect(() => {
         fetch('http://localhost:5000/get-all-services')
             .then((res) => {
@@ -42,7 +44,7 @@ export default function ServicesPage() {
                             <p className="service-short-title m-0">{element?.title}</p>
                             <p className="service-description m-0">
                                 <span className="rev">Description:</span>
-                                {element?.description}
+                                {`${resizeDesc(element?.description)}...`}
                             </p>
                             <p className="service-short-dollar m-0">Price: ${element?.price}</p>
                             <button
