@@ -2,7 +2,9 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../../context/UserContext';
+import Loader from '../Loader';
 import SingleReview from './SingleReview';
 
 export default function ServiceDetails() {
@@ -10,6 +12,7 @@ export default function ServiceDetails() {
     const [review, setReview] = useState('');
     const [resReview, setResReview] = useState([]);
     const [isSubmit, setSubmit] = useState(false);
+    const [load, setLoad] = useState(true);
 
     const { id } = useParams();
 
@@ -19,6 +22,10 @@ export default function ServiceDetails() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (review.length === 0) {
+            toast.warn('Enter Review!', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 1000,
+            });
             return;
         }
 
@@ -46,6 +53,10 @@ export default function ServiceDetails() {
                 res.json()
                     .then((upRes) => {
                         setSubmit(true);
+                        toast.success('Posted Successful!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 1000,
+                        });
                     })
                     .catch((err) => {
                         console.log(err.message);
@@ -65,6 +76,7 @@ export default function ServiceDetails() {
                     .then((upRes) => {
                         setData(upRes?.message);
                         setResReview(upRes?.message?.reviews);
+                        setLoad(false);
                     })
                     .catch((err) => {
                         console.log(err.message);
@@ -75,8 +87,10 @@ export default function ServiceDetails() {
             });
         document.title = data?.title ? data?.title : 'Services';
     }, [id, isSubmit, data]);
-    return (
+
+    let renderElement = (
         <div className="container-fluid overflow-hidden" id="servicePage">
+            <ToastContainer />
             <div className="container" id="service-details">
                 <div className="container" id="upper-cover">
                     <img src={data?.photoURL} className="img-fluid" alt="coverphoto" />
@@ -125,4 +139,9 @@ export default function ServiceDetails() {
             </div>
         </div>
     );
+
+    if (load) {
+        renderElement = <Loader />;
+    }
+    return renderElement;
 }

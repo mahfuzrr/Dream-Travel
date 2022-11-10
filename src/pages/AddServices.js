@@ -5,7 +5,7 @@ import Navbar from '../components/navbar/Navbar';
 
 export default function AddServices() {
     useEffect(() => {
-        document.title = 'SignUp';
+        document.title = 'Add Services';
     }, []);
     return (
         <>
