@@ -1,5 +1,6 @@
 import 'react-photo-view/dist/react-photo-view.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 import AddServices from './pages/AddServices';
 import Blog from './pages/Blog';
@@ -36,7 +37,7 @@ function App() {
                 />
                 <Route path="/services/:id" element={<ServicesDetails />} />
                 <Route path="/blog" element={<Blog />} />
-                <Route path="*" element={<div>Not Found...</div>} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );

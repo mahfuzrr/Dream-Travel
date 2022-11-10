@@ -92,6 +92,10 @@ th {
     padding: 0.5rem 0.8rem !important;
 }
 
+#no-review {
+    text-align: center;
+}
+
 #below-modal {
     padding: 2rem 1.5rem;
 }

@@ -91,45 +91,49 @@ export default function Reviews() {
                 />
             )}
             <div className="container" id="myReviewsContent">
-                <table className="table" id="reviewTable">
-                    <thead>
-                        <tr>
-                            <th>Service</th>
-                            <th>Reviews</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {reviews?.map((res) =>
-                            res?.reviews?.map((revRes) => (
-                                <tr key={revRes?._id}>
-                                    <td>{revRes?.serviceName}</td>
-                                    <td className="text-start">{revRes?.review}</td>
-                                    <td>
-                                        <div className="container-fluid d-flex gap-3 justify-content-center align-items-center responsive-icons">
-                                            <span
-                                                className="table-review-edit-icon"
-                                                role="presentation"
-                                                onClick={() => handleModal(revRes)}
-                                            >
-                                                <i className="fa-solid fa-pen-to-square" />
-                                            </span>
-                                            <span
-                                                className="table-review-delete-icon"
-                                                role="presentation"
-                                                onClick={() =>
-                                                    handleDelete(revRes?.serviceId, revRes?._id)
-                                                }
-                                            >
-                                                <i className="fa-solid fa-trash" />
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                {reviews.length > 0 ? (
+                    <table className="table" id="reviewTable">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Reviews</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reviews?.map((res) =>
+                                res?.reviews?.map((revRes) => (
+                                    <tr key={revRes?._id}>
+                                        <td>{revRes?.serviceName}</td>
+                                        <td className="text-start">{revRes?.review}</td>
+                                        <td>
+                                            <div className="container-fluid d-flex gap-3 justify-content-center align-items-center responsive-icons">
+                                                <span
+                                                    className="table-review-edit-icon"
+                                                    role="presentation"
+                                                    onClick={() => handleModal(revRes)}
+                                                >
+                                                    <i className="fa-solid fa-pen-to-square" />
+                                                </span>
+                                                <span
+                                                    className="table-review-delete-icon"
+                                                    role="presentation"
+                                                    onClick={() =>
+                                                        handleDelete(revRes?.serviceId, revRes?._id)
+                                                    }
+                                                >
+                                                    <i className="fa-solid fa-trash" />
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                ) : (
+                    <h4 id="no-review">No reviews were added</h4>
+                )}
             </div>
         </div>
     );
