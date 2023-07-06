@@ -1,7 +1,8 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import { useContext, useEffect, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { AuthContext } from '../../context/UserContext';
 import Loader from '../Loader';
 import ReviewModal from './ReviewModal';
@@ -71,6 +72,21 @@ export default function Reviews() {
                         .then((upRes) => {
                             if (upRes?.success) {
                                 setReviews(upRes?.message);
+                                const temp = [];
+
+                                for (let i = 0; i < upRes?.message?.length; i += 1) {
+                                    for (
+                                        let j = 0;
+                                        j < upRes?.message[i]?.reviews?.length;
+                                        j += 1
+                                    ) {
+                                        if (upRes?.message[i]?.reviews[j]?.uId == user?.uid) {
+                                            temp.push(upRes?.message[i]?.reviews[j]);
+                                        }
+                                    }
+                                }
+
+                                setReviews(temp);
                             }
                             setLoad(false);
                         })
@@ -107,34 +123,32 @@ export default function Reviews() {
                             </tr>
                         </thead>
                         <tbody>
-                            {reviews?.map((res) =>
-                                res?.reviews?.map((revRes) => (
-                                    <tr key={revRes?._id}>
-                                        <td>{revRes?.serviceName}</td>
-                                        <td className="text-start">{revRes?.review}</td>
-                                        <td>
-                                            <div className="container-fluid d-flex gap-3 justify-content-center align-items-center responsive-icons">
-                                                <span
-                                                    className="table-review-edit-icon"
-                                                    role="presentation"
-                                                    onClick={() => handleModal(revRes)}
-                                                >
-                                                    <i className="fa-solid fa-pen-to-square" />
-                                                </span>
-                                                <span
-                                                    className="table-review-delete-icon"
-                                                    role="presentation"
-                                                    onClick={() =>
-                                                        handleDelete(revRes?.serviceId, revRes?._id)
-                                                    }
-                                                >
-                                                    <i className="fa-solid fa-trash" />
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
+                            {reviews?.map((revRes) => (
+                                <tr key={revRes?._id}>
+                                    <td>{revRes?.serviceName}</td>
+                                    <td className="text-start">{revRes?.review}</td>
+                                    <td>
+                                        <div className="container-fluid d-flex gap-3 justify-content-center align-items-center responsive-icons">
+                                            <span
+                                                className="table-review-edit-icon"
+                                                role="presentation"
+                                                onClick={() => handleModal(revRes)}
+                                            >
+                                                <i className="fa-solid fa-pen-to-square" />
+                                            </span>
+                                            <span
+                                                className="table-review-delete-icon"
+                                                role="presentation"
+                                                onClick={() =>
+                                                    handleDelete(revRes?.serviceId, revRes?._id)
+                                                }
+                                            >
+                                                <i className="fa-solid fa-trash" />
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 ) : (

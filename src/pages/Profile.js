@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
-import BlogSection from '../components/blog/BlogSection';
 import Footer from '../components/footer/Footer';
 import Navbar from '../components/navbar/Navbar';
+import ProfileWrapper from '../components/profile/ProfileWrapper';
 
-export default function Blog() {
+export default function Profile() {
     useEffect(() => {
-        document.title = 'Blog';
+        document.title = 'Profile';
     }, []);
+
     return (
         <>
             <Navbar />
-            <BlogSection />
+            <ProfileWrapper />
             <Footer />
         </>
     );

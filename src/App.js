@@ -1,12 +1,15 @@
 import 'react-photo-view/dist/react-photo-view.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AdminRoute from './components/AdminRoute';
 import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 import AddServices from './pages/AddServices';
-import Blog from './pages/Blog';
+import Admin from './pages/Admin';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
 import MyReviews from './pages/MyReviews';
+import MyServicePage from './pages/MyServicePage';
+import Profile from './pages/Profile';
 import Service from './pages/Service';
 import ServicesDetails from './pages/ServiceDetails';
 import SignUp from './pages/SignUp';
@@ -36,7 +39,30 @@ function App() {
                     }
                 />
                 <Route path="/services/:id" element={<ServicesDetails />} />
-                <Route path="/blog" element={<Blog />} />
+                <Route
+                    path="/my-profile"
+                    element={
+                        <PrivateRoute>
+                            <Profile />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/my-services"
+                    element={
+                        <PrivateRoute>
+                            <MyServicePage />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <AdminRoute>
+                            <Admin />
+                        </AdminRoute>
+                    }
+                />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
